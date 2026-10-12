@@ -34,7 +34,7 @@ async function getWeatherInfo(cityNameValue) {
       alert(errorData.error);
     }
   } catch (error) {
-    alert("Unexpected error or a network failure");
+    alert("Unable to connect to the weather server. Please try again.");
     console.log(error);
   }
 }
