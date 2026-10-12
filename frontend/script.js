@@ -3,11 +3,9 @@ const searchBtn = document.getElementById("search-btn");
 const weatherDisplayElements = document.querySelectorAll(".display-info p");
 
 searchBtn.addEventListener("click", function () {
-  let cityName = weatherDisplayElements[0];
   if (cityInput.value.trim() === "") {
     alert("Add city name please");
   } else {
-    cityName.textContent = "City Name: " + cityInput.value;
     let storedCityName = cityInput.value.trim();
     getWeatherInfo(storedCityName);
     cityInput.value = "";
@@ -20,6 +18,7 @@ async function getWeatherInfo(cityNameValue) {
     );
     if (response.ok) {
       const data = await response.json();
+      weatherDisplayElements[0].textContent = "CityName: " + data.name;
       let temperature = weatherDisplayElements[1];
       let description = weatherDisplayElements[2];
       let humidity = weatherDisplayElements[3];
