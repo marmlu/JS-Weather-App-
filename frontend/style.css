@@ -26,6 +26,10 @@ h1 {
   border: none;
   cursor: pointer;
 }
+#search-btn:disabled {
+  opacity: 0.5;
+  cursor: no-drop;
+}
 .display-info {
   margin: auto;
   width: 50%;
