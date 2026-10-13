@@ -1,6 +1,7 @@
 const cityInput = document.getElementById("city-input");
 const searchBtn = document.getElementById("search-btn");
 const weatherDisplayElements = document.querySelectorAll(".display-info p");
+const searchBar = document.querySelector(".search-bar");
 
 searchBtn.addEventListener("click", function () {
   if (cityInput.value.trim() === "") {
@@ -12,12 +13,16 @@ searchBtn.addEventListener("click", function () {
   }
 });
 async function getWeatherInfo(cityNameValue) {
+  const loadingMessage = document.createElement("p");
   try {
+    loadingMessage.textContent = "Loading...";
+    searchBar.appendChild(loadingMessage);
     const response = await fetch(
       `http://localhost:3000/api/weather?city=${encodeURIComponent(cityNameValue)}`,
     );
     if (response.ok) {
       const data = await response.json();
+
       weatherDisplayElements[0].textContent = "CityName: " + data.name;
       let temperature = weatherDisplayElements[1];
       let description = weatherDisplayElements[2];
@@ -36,5 +41,9 @@ async function getWeatherInfo(cityNameValue) {
   } catch (error) {
     alert("Unable to connect to the weather server. Please try again.");
     console.log(error);
+  } finally {
+    if (searchBar.contains(loadingMessage)) {
+      searchBar.removeChild(loadingMessage);
+    }
   }
 }
