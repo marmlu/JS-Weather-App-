@@ -8,11 +8,13 @@ searchBtn.addEventListener("click", function () {
     alert("Add city name please");
   } else {
     let storedCityName = cityInput.value.trim();
+
     getWeatherInfo(storedCityName);
     cityInput.value = "";
   }
 });
 async function getWeatherInfo(cityNameValue) {
+  searchBtn.disabled = true;
   const loadingMessage = document.createElement("p");
   try {
     loadingMessage.textContent = "Loading...";
@@ -42,6 +44,7 @@ async function getWeatherInfo(cityNameValue) {
     alert("Unable to connect to the weather server. Please try again.");
     console.log(error);
   } finally {
+    searchBtn.disabled = false;
     if (searchBar.contains(loadingMessage)) {
       searchBar.removeChild(loadingMessage);
     }
