@@ -5,15 +5,19 @@ let searchedCities = [];
 let storedCityName = "";
 searchBtn.addEventListener("click", function () {
   let currentCityName = cityInput.value.trim();
-  if (cityInput.value.trim() === "") {
-    alert("Add city name please");
+  if (searchBtn.disabled) {
+    return;
   } else {
-    if (searchedCities.includes(currentCityName.toLowerCase())) {
-      alert(
-        "The city is the same as one of searched city from previously searched cities",
-      );
+    if (cityInput.value.trim() === "") {
+      alert("Add city name please");
     } else {
-      getWeatherInfo(currentCityName);
+      if (searchedCities.includes(currentCityName.toLowerCase())) {
+        alert(
+          "The city is the same as one of searched city from previously searched cities",
+        );
+      } else {
+        getWeatherInfo(currentCityName);
+      }
     }
     cityInput.value = "";
   }
