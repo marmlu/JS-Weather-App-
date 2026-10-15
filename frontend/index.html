@@ -3,28 +3,84 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+
+    <meta
+      name="description"
+      content="Check current weather conditions, temperature, humidity, and wind speed for cities around the world."
+    />
+
+    <title>Weather App | Live Weather</title>
+
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <h1>Weather App</h1>
-    <div class="search-bar">
-      <input
-        autocomplete="off"
-        id="city-input"
-        type="text"
-        placeholder="Search city"
-      />
-      <button id="search-btn">Search</button>
-      <button id="clear-history-btn">Clear History</button>
-    </div>
-    <div class="display-info">
-      <p id="city-name">City Name:</p>
-      <p id="temperature">Temperature:</p>
-      <p id="description">Weather Description:</p>
-      <p id="humidity">Humidity:</p>
-      <p id="wind-speed">Wind Speed:</p>
-    </div>
+    <main class="weather-app">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-icon">☀</span>
+          <span>Weather<span class="brand-highlight">ly</span></span>
+        </div>
+
+        <p class="header-subtitle">Your daily weather companion</p>
+      </header>
+
+      <section class="search-section">
+        <h1>Weather Forecast</h1>
+
+        <p class="section-description">
+          Discover the weather conditions in your city.
+        </p>
+
+        <div class="search-bar">
+          <label class="visually-hidden" for="city-input">
+            Enter a city name
+          </label>
+
+          <input
+            autocomplete="off"
+            id="city-input"
+            type="text"
+            placeholder="Enter city name..."
+          />
+
+          <button id="search-btn" type="button">
+            <span class="search-icon">⌕</span>
+            Search
+          </button>
+        </div>
+
+        <button id="clear-history-btn" type="button">
+          Clear Search History
+        </button>
+
+        <p id="history-message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="weather-section" aria-label="Weather information">
+        <div class="section-heading">
+          <h2>Current Weather</h2>
+          <span class="live-indicator">● Live conditions</span>
+        </div>
+
+        <div class="display-info">
+          <p id="city-name">City Name:</p>
+
+          <p id="temperature">Temperature:</p>
+
+          <p id="description">Weather Description:</p>
+
+          <p id="humidity">Humidity:</p>
+
+          <p id="wind-speed">Wind Speed:</p>
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <p>Weatherly · Your weather, at a glance.</p>
+      </footer>
+    </main>
+
     <script src="script.js"></script>
   </body>
 </html>
