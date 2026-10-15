@@ -1,6 +1,7 @@
 const cityInput = document.getElementById("city-input");
 const searchBtn = document.getElementById("search-btn");
 const weatherDisplayElements = document.querySelectorAll(".display-info p");
+const clearHistoryBtn = document.getElementById("clear-history-btn");
 let searchedCities = [];
 let storedCityName = "";
 searchBtn.addEventListener("click", function () {
@@ -54,6 +55,7 @@ async function getWeatherInfo(cityNameValue) {
       humidity.textContent = `Humidity: ${data.main.humidity} %`;
       windSpeed.textContent = `Wind Speed: ${data.wind.speed.toFixed(1)} m/s`;
       searchedCities.push(cityNameValue.toLowerCase());
+      console.log(searchedCities);
     } else {
       clearWeatherInfo();
       const errorData = await response.json();
@@ -68,3 +70,12 @@ async function getWeatherInfo(cityNameValue) {
     searchBtn.disabled = false;
   }
 }
+
+clearHistoryBtn.addEventListener("click", function () {
+  if (searchedCities.length === 0) {
+    alert("Searched cities are already empty");
+  } else {
+    searchedCities.splice(0, searchedCities.length);
+  }
+  console.log(searchedCities);
+});
