@@ -1,15 +1,17 @@
 const cityInput = document.getElementById("city-input");
 const searchBtn = document.getElementById("search-btn");
 const weatherDisplayElements = document.querySelectorAll(".display-info p");
-
+let searchedCities = [];
 let storedCityName = "";
 searchBtn.addEventListener("click", function () {
   let currentCityName = cityInput.value.trim();
   if (cityInput.value.trim() === "") {
     alert("Add city name please");
   } else {
-    if (currentCityName.toLowerCase() === storedCityName.toLowerCase()) {
-      alert("The city is the same as the last searched city");
+    if (searchedCities.includes(currentCityName.toLowerCase())) {
+      alert(
+        "The city is the same as one of searched city from previously searched cities",
+      );
     } else {
       getWeatherInfo(currentCityName);
     }
@@ -47,7 +49,7 @@ async function getWeatherInfo(cityNameValue) {
       description.textContent = `Weather Description: ${data.weather[0].description}`;
       humidity.textContent = `Humidity: ${data.main.humidity} %`;
       windSpeed.textContent = `Wind Speed: ${data.wind.speed.toFixed(1)} m/s`;
-      storedCityName = cityNameValue.toLowerCase();
+      searchedCities.push(cityNameValue.toLowerCase());
     } else {
       clearWeatherInfo();
       const errorData = await response.json();
