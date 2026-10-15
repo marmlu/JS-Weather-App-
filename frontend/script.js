@@ -2,26 +2,28 @@ const cityInput = document.getElementById("city-input");
 const searchBtn = document.getElementById("search-btn");
 const weatherDisplayElements = document.querySelectorAll(".display-info p");
 const clearHistoryBtn = document.getElementById("clear-history-btn");
+const historyMessage = document.getElementById("history-message");
 let searchedCities = [];
-let storedCityName = "";
 searchBtn.addEventListener("click", function () {
-  let currentCityName = cityInput.value.trim();
   if (searchBtn.disabled) {
     return;
-  } else {
-    if (cityInput.value.trim() === "") {
-      alert("Add city name please");
-    } else {
-      if (searchedCities.includes(currentCityName.toLowerCase())) {
-        alert(
-          "The city is the same as one of searched city from previously searched cities",
-        );
-      } else {
-        getWeatherInfo(currentCityName);
-      }
-    }
-    cityInput.value = "";
   }
+
+  historyMessage.textContent = "";
+
+  let currentCityName = cityInput.value.trim();
+
+  if (currentCityName === "") {
+    alert("Add city name please");
+  } else {
+    if (searchedCities.includes(currentCityName.toLowerCase())) {
+      alert("You have already searched for this city.");
+    } else {
+      getWeatherInfo(currentCityName);
+    }
+  }
+
+  cityInput.value = "";
 });
 let weathInfoNames = [
   "City Name: ",
@@ -55,7 +57,6 @@ async function getWeatherInfo(cityNameValue) {
       humidity.textContent = `Humidity: ${data.main.humidity} %`;
       windSpeed.textContent = `Wind Speed: ${data.wind.speed.toFixed(1)} m/s`;
       searchedCities.push(cityNameValue.toLowerCase());
-      console.log(searchedCities);
     } else {
       clearWeatherInfo();
       const errorData = await response.json();
@@ -64,7 +65,6 @@ async function getWeatherInfo(cityNameValue) {
   } catch (error) {
     clearWeatherInfo();
     alert("Unable to connect to the weather server. Please try again.");
-    console.log(error);
   } finally {
     searchBtn.textContent = "Search";
     searchBtn.disabled = false;
@@ -73,9 +73,10 @@ async function getWeatherInfo(cityNameValue) {
 
 clearHistoryBtn.addEventListener("click", function () {
   if (searchedCities.length === 0) {
-    alert("Searched cities are already empty");
+    historyMessage.textContent = "Search history is already empty";
   } else {
     searchedCities.splice(0, searchedCities.length);
+    historyMessage.textContent = "Search history cleared successfully!";
+    clearWeatherInfo();
   }
-  console.log(searchedCities);
 });
